@@ -1,0 +1,14 @@
+{{ range "nginx" | ls }}
+{{ .Key }} {{ .Value }};{{ end }}
+
+events {
+    {{ range "nginx/events" | ls }}
+    {{ .Key }} {{ .Value }};{{ end }}
+}
+
+http {
+    {{ range "nginx/http" | ls }}
+    {{ .Key }} {{ .Value }};{{ end }}
+    access_log /var/log/nginx/access.log  upstream_time;
+    include /etc/nginx/conf.d/*.conf;
+}
